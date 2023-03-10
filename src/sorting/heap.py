@@ -1,35 +1,64 @@
-def heapify(arr, n, i):
+def heapSort(arr):
     """
-    Helper function to create a heap from an array.
+    Sorts the input list using heapsort algorithm.
+
+    Parameters:
+    -----------
+    arr: list
+        List to be sorted.
+
+    Returns:
+    --------
+    list
+        Sorted list.
     """
-    largest = i
-    l = 2 * i + 1
-    r = 2 * i + 2
+    def heapify(arr, n, i):
+        """
+        Converts the input list into a max heap at given index i.
 
-    if l < n and arr[l] > arr[largest]:
-        largest = l
+        Parameters:
+        -----------
+        arr: list
+            List to be heapified.
+        n: int
+            Number of elements in the list.
+        i: int
+            Index to start the heapify operation.
 
-    if r < n and arr[r] > arr[largest]:
-        largest = r
+        Returns:
+        --------
+        None
+        """
+        largest = i  # Initialize largest as root
+        left = 2 * i + 1  # left = 2*i + 1
+        right = 2 * i + 2  # right = 2*i + 2
 
-    if largest != i:
-        arr[i], arr[largest] = arr[largest], arr[i]
-        heapify(arr, n, largest)
+        # See if left child of root exists and is greater than root
+        if left < n and arr[i] < arr[left]:
+            largest = left
 
+        # See if right child of root exists and is greater than root
+        if right < n and arr[largest] < arr[right]:
+            largest = right
 
-def heapsort(arr):
-    """
-    HeapSort algorithm implementation.
-    """
+        # Change root, if needed
+        if largest != i:
+            arr[i], arr[largest] = arr[largest], arr[i]  # Swap
+
+            # Heapify the root.
+            heapify(arr, n, largest)
+
     n = len(arr)
 
-    # Build a max-heap from the array
+    # Build a maxheap.
     for i in range(n // 2 - 1, -1, -1):
         heapify(arr, n, i)
 
-    # Extract elements from the heap one by one
+    # Extract elements one by one
     for i in range(n - 1, 0, -1):
-        arr[0], arr[i] = arr[i], arr[0]
+        arr[i], arr[0] = arr[0], arr[i]  # Swap
         heapify(arr, i, 0)
 
     return arr
+if __name__ == "__main__":
+    print(heapSort([1, 5, 2, 1, 4, 7, 7, 21, 2, 73, 34, 23, -2, 6, 112, -55]))

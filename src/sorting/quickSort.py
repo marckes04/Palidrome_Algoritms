@@ -1,19 +1,13 @@
-
-def quicksort(arr):
-    """
-    QuickSort algorithm implementation.
-    """
+def quickSort(arr):
     if len(arr) <= 1:
         return arr
 
-    # Choose the pivot element
     pivot = arr[len(arr) // 2]
-
-    # Divide the array into three parts: elements smaller than the pivot,
-    # elements equal to the pivot, and elements greater than the pivot
     left = [x for x in arr if x < pivot]
-    equal = [x for x in arr if x == pivot]
+    middle = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
 
-    # Recursively sort the left and right parts
-    return quicksort(left) + equal + quicksort(right)
+    return quickSort(left) + middle + quickSort(right)
+
+if __name__ == "__main__":
+    print(quickSort([1, 5, 2, 1, 4, 7, 7, 21, 2, 73, 34, 23, -2, 6, 112, -55]))
